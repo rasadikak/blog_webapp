@@ -15,3 +15,7 @@ build/
 # Editor
 .vscode/
 .vs/
+
+note.txt
+
+*.db
