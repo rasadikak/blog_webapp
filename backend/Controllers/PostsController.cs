@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 [ApiController]
 [Route("api/[controller]")]
@@ -45,6 +46,7 @@ public class PostController : ControllerBase
     }
 
     //create posts
+    [Authorize]
     [HttpPost]
     public async Task<IActionResult> CreatePosts([FromBody] Post newPost)
     {
@@ -61,6 +63,7 @@ public class PostController : ControllerBase
     }
 
     //update post
+    [Authorize]
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdatePost(int id,  [FromBody] Post updatedPost)
     {
@@ -87,6 +90,7 @@ public class PostController : ControllerBase
     }
 
     //delete post
+    [Authorize]
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeletePost(int id)
     {

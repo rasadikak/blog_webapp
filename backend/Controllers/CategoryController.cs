@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 [ApiController]
 [Route("api/[controller]")]
@@ -30,6 +31,7 @@ public class CategoryController : ControllerBase
 
 
     //create category
+    [Authorize]
     [HttpPost]
     public async Task<IActionResult> CreateCategory([FromBody] Category newCategory)
     {
