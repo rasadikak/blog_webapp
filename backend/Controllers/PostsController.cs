@@ -109,5 +109,21 @@ public class PostController : ControllerBase
         }
     }
 
+    //get posts by category
+    [HttpGet("category/{categoryId}")]
+    public async Task<IActionResult> GetPostsByCategory(int categoryId)
+    {
+        try
+        {
+            var posts= _context.Posts.Where(p=>p.CategoryId== categoryId).ToListAsync();
+            return Ok(posts);
+        }
+        catch(Exception ex)
+        {
+            return StatusCode(500,$"Something went wrong while fetching posts by category - {ex}");
+        }
+    }
+
+
 
 }
