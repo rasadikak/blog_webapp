@@ -1,9 +1,8 @@
 public class Comment
 {
-    public int id{get; set;}
-    public required string content{get; set;}
-    public DateTime createdAt{get; set;}
-    public int PostId{get; set;}
-    public required string CommenterName{get; set;}
-
+    public int Id { get; set; }
+    public required string Content { get; set; }
+    public DateTime CreatedAt { get; set; }
+    public int PostId { get; set; }
+    public required string CommenterName { get; set; }
 }
