@@ -1,0 +1,17 @@
+# .NET
+bin/
+obj/
+*.user
+
+# React
+node_modules/
+dist/
+build/
+
+# Environment/secrets
+.env
+*.env.local
+
+# Editor
+.vscode/
+.vs/
