@@ -124,6 +124,24 @@ public class PostController : ControllerBase
         }
     }
 
+    //serach posts using title and keywords
+    [HttpGet("search")]
+    public async Task<IActionResult> SearchPosts(string query)
+    {
+        try
+        {
+            var posts = await _context.Posts
+                .Where(p => p.Title.Contains(query) || p.Content.Contains(query))
+                .ToListAsync();
+
+            return Ok(posts);
+        }
+        catch(Exception ex)
+        {
+            return StatusCode(500,$"Something went wrong while serching posts  - {ex}");
+        }
+    }
+
 
 
 }
