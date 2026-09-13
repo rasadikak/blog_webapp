@@ -31,13 +31,20 @@ builder.Services.AddAuthentication(options =>
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
         IssuerSigningKey = new SymmetricSecurityKey(
-            Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+            Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("JWT_KEY")))
     };
 });
 
 builder.Services.AddAuthorization();
 
 var app = builder.Build();
+
+// Seed the database with sample data (only runs if tables are empty)
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    DbSeeder.Seed(db);
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -54,14 +61,9 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-
-
-
-
 app.MapGet("/", () =>
 {
     return "app is working!!!";
 });
 
 app.Run();
-

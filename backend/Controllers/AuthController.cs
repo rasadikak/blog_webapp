@@ -12,13 +12,11 @@ public class AuthController : ControllerBase
 {
     private readonly AppDbContext _context;
     private readonly PasswordHasher<User> _passwordHasher;
-    private readonly IConfiguration _config;
 
-    public AuthController(AppDbContext context, IConfiguration config)
+    public AuthController(AppDbContext context)
     {
         _context = context;
         _passwordHasher = new PasswordHasher<User>();
-        _config = config;
     }
 
     [HttpPost("register")]
@@ -76,7 +74,7 @@ public class AuthController : ControllerBase
             new Claim(ClaimTypes.Name, user.Username)
         };
 
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("JWT_KEY")));
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
         var token = new JwtSecurityToken(
