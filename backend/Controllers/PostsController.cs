@@ -61,8 +61,53 @@ public class PostController : ControllerBase
     }
 
     //update post
-    [HttpPut]
-    public async Task<IActionResult> UpdatePost(int id)
+    [HttpPut("{id}")]
+    public async Task<IActionResult> UpdatePost(int id,  [FromBody] Post updatedPost)
+    {
+        try
+        {
+            var oldPost= await _context.Posts.FindAsync(id);
+            if (oldPost == null)
+            {
+                return NotFound();
+            }
+            oldPost.Title= updatedPost.Title;
+            oldPost.Content = updatedPost.Content;
+            oldPost.CategoryId = updatedPost.CategoryId;
+
+            await _context.SaveChangesAsync();
+
+            return Ok(oldPost);
+
+        }
+        catch(Exception ex)
+        {
+            return StatusCode(500,$"Something went wrong while editing post -{ex}");
+        }
+    }
+
+    //delete post
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeletePost(int id)
+    {
+        try
+        {
+            var post= await _context.Posts.FindAsync(id);
+            if (post==null)
+            {
+                return NotFound();
+            }
+            _context.Posts.Remove(post);
+            await _context.SaveChangesAsync();
+
+            return Ok (new{message="Post deleted successfully"});
+
+        }
+        catch(Exception ex)
+        {
+            return StatusCode(500,$"Something went wrong while deleting post -{ex}");
+        }
+    }
 
 
 }
