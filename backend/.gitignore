@@ -15,3 +15,5 @@ build/
 # Editor
 .vscode/
 .vs/
+
+blog.db
