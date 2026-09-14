@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useNavigate } from "react-router-dom";
 
 function Login(){
 
@@ -6,8 +7,12 @@ function Login(){
     const [password, setPassword]= useState("");
     const[error, setError]= useState("");
 
+    const navigate = useNavigate();
+
     const handleSubmit= (e)=>{
         e.preventDefault();
+
+        
 
         fetch("http://localhost:5017/api/Auth/login", {
             method: "POST",
@@ -38,8 +43,9 @@ function Login(){
                     <div>Username</div>
                     <input type="text" 
                         value={username} 
+                        required
                         placeholder="Username"
-                        onchange={(e)=>setUsername(e.target.value)}
+                        onChange={(e)=>setUsername(e.target.value)}
                     >
 
                     </input>
@@ -49,6 +55,7 @@ function Login(){
                     <div>password</div>
                     <input type="password" 
                     value={password} 
+                    required
                     placeholder="password"
                     onChange={(e)=>setPassword(e.target.value)}
                     >
@@ -57,7 +64,7 @@ function Login(){
                 </div>
 
                 <div>
-                    <button type="submit"></button>
+                    <button type="submit">Login</button>
                 </div>
             </form>
             {error && <p style={{ color: "red" }}>{error}</p>}
