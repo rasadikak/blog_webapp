@@ -17,3 +17,6 @@ build/
 .vs/
 
 blog.db
+
+blog.db-shm
+blog.db-wal
