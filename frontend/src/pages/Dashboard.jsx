@@ -1,8 +1,11 @@
 import { useState,useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Dashboard(){
 
     const [posts, setPosts] = useState([]);
+
+    const navigate = useNavigate();
     
     useEffect(() => {
         fetch("http://localhost:5017/api/Post")
