@@ -1,0 +1,69 @@
+import { useState } from "react"
+
+function Login(){
+
+    const [username,setUsername]= useState("");
+    const [password, setPassword]= useState("");
+    const[error, setError]= useState("");
+
+    const handleSubmit= (e)=>{
+        e.preventDefault();
+
+        fetch("http://localhost:5017/api/Auth/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username: username, passwordHash: password }),
+            })
+            .then((response) => {
+                if (!response.ok) {
+                throw new Error("Invalid username or password");
+                }
+                return response.json();
+            })
+            .then((data) => {
+                localStorage.setItem("token", data.token);
+                navigate("/dashboard");
+            })
+            .catch((err) => {
+                setError(err.message);
+            });
+
+    }
+
+    return(
+        <div>
+            <h1>Admin Login</h1>
+            <form onSubmit={handleSubmit}>
+                <div>
+                    <div>Username</div>
+                    <input type="text" 
+                        value={username} 
+                        placeholder="Username"
+                        onchange={(e)=>setUsername(e.target.value)}
+                    >
+
+                    </input>
+                </div>
+
+                <div>
+                    <div>password</div>
+                    <input type="password" 
+                    value={password} 
+                    placeholder="password"
+                    onChange={(e)=>setPassword(e.target.value)}
+                    >
+
+                    </input>
+                </div>
+
+                <div>
+                    <button type="submit"></button>
+                </div>
+            </form>
+            {error && <p style={{ color: "red" }}>{error}</p>}
+        </div>
+    )
+    
+}
+
+export default Login 
