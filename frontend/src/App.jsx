@@ -3,6 +3,7 @@ import Home from './pages/Home';
 import Login from "./pages/Login"
 import Dashboard from "./pages/Dashboard"
 import Post from "./pages/Post"
+import ProtectedRoute from "./ProtectedRoute"
 
 function App() {
   return (
@@ -10,7 +11,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login/>} />
-        <Route path="/dashboard" element={<Dashboard/>} />
+        <Route path="/dashboard" element={<ProtectedRoute><Dashboard/></ProtectedRoute>} />
         <Route path="/post/:id" element={<Post/>} />
 
       </Routes>
