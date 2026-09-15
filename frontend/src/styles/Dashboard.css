@@ -276,3 +276,18 @@
     flex-direction: column;
   }
 }
+
+
+.post-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.post-row-bullet {
+  width: 8px;
+  height: 8px;
+  min-width: 8px;
+  border-radius: 50%;
+  background-color: var(--accent);
+}

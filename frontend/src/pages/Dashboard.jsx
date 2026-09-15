@@ -205,13 +205,8 @@ function Dashboard() {
       <div className="post-row-list">
         {filteredPosts.map((post) => (
           <div className="post-row" key={post.id}>
-            <div className="post-row-thumb">
-              {post.imageUrl ? (
-                <img src={post.imageUrl} alt="" />
-              ) : (
-                <div className="thumb-placeholder">No image</div>
-              )}
-            </div>
+            <span className="post-row-bullet" aria-hidden="true"></span>
+
             <div className="post-row-main">
               <Link className="post-row-title" to={`/post/${post.id}`}>
                 {post.title}
