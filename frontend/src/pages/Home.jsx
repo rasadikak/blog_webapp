@@ -34,7 +34,7 @@ function Home() {
       {filteredPosts.map((post) => (
         <div className="post-card" key={post.id}>
           <h2>
-            <Link className="post-title-link" to={`/post/${post.id}`}>
+            <Link className="post-title-link" to={`/Post/${post.id}`}>
               {post.title}
             </Link>
           </h2>
