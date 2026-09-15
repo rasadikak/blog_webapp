@@ -5,6 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Microsoft.AspNetCore.Authorization;
 
 [ApiController]
 [Route("api/[controller]")]
@@ -84,5 +85,30 @@ public class AuthController : ControllerBase
         );
 
         return new JwtSecurityTokenHandler().WriteToken(token);
+    }
+
+
+     // delete users
+    [Authorize]
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteUsers(int id)
+    {
+        try
+        {
+            var user= await _context.Users.FindAsync(id);
+            if (user==null)
+            {
+                return NotFound();
+            }
+            _context.Users.Remove(user);
+            await _context.SaveChangesAsync();
+
+            return Ok (new{message="User deleted successfully"});
+
+        }
+        catch(Exception ex)
+        {
+            return StatusCode(500,$"Something went wrong while deleting user -{ex}");
+        }
     }
 }
