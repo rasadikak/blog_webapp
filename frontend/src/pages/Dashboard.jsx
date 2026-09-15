@@ -134,6 +134,13 @@ function Dashboard() {
     });
   };
 
+  // ----- Category lookup for display -----
+
+  const getCategoryName = (id) => {
+    const match = categories.find((cat) => cat.id === id);
+    return match ? match.name : "Uncategorized";
+  };
+
   // ----- Filtering (search by text + category) -----
 
   const filteredPosts = posts.filter((post) => {
@@ -148,26 +155,33 @@ function Dashboard() {
   });
 
   return (
-    <div>
-      <h1>Dashboard</h1>
+    <div className="dashboard-container">
+      <header className="dashboard-header">
+        <div>
+          <h1 className="dashboard-wordmark">Quiet Corners</h1>
+          <p className="dashboard-subtitle">Admin</p>
+        </div>
+        <div className="dashboard-actions">
+          <button type="button" className="btn-outline" onClick={openCategoryModal}>
+            New category
+          </button>
+          <button type="button" className="btn-solid" onClick={openCreateModal}>
+            New post
+          </button>
+        </div>
+      </header>
 
-      <button type="button" onClick={openCreateModal}>
-        Create New Post
-      </button>
-
-      <button type="button" onClick={openCategoryModal}>
-        Create New Category
-      </button>
-
-      <div>
+      <div className="dashboard-filters">
         <input
           type="text"
-          placeholder="Search posts..."
+          className="filter-input"
+          placeholder="Search posts…"
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
         />
 
         <select
+          className="filter-select"
           value={filterCategoryId}
           onChange={(e) => setFilterCategoryId(e.target.value)}
         >
@@ -180,26 +194,51 @@ function Dashboard() {
         </select>
       </div>
 
-      {filteredPosts.map((post) => (
-        <div key={post.id}>
-          <h2>
-            <Link to={`/post/${post.id}`}>{post.title}</Link>
-          </h2>
-          <p>{post.content}</p>
-          <button type="button" onClick={() => openEditModal(post)}>
-            Edit Post
-          </button>
-          <button type="button" onClick={() => deletePostHandler(post.id)}>
-            Delete Post
-          </button>
-        </div>
-      ))}
+      {filteredPosts.length === 0 && (
+        <p className="empty-state">
+          {posts.length === 0
+            ? "No posts yet. Create your first one."
+            : "No posts match your filters."}
+        </p>
+      )}
+
+      <div className="post-row-list">
+        {filteredPosts.map((post) => (
+          <div className="post-row" key={post.id}>
+            <div className="post-row-thumb">
+              {post.imageUrl ? (
+                <img src={post.imageUrl} alt="" />
+              ) : (
+                <div className="thumb-placeholder">No image</div>
+              )}
+            </div>
+            <div className="post-row-main">
+              <Link className="post-row-title" to={`/post/${post.id}`}>
+                {post.title}
+              </Link>
+              <span className="post-row-category">{getCategoryName(post.categoryId)}</span>
+            </div>
+            <div className="post-row-actions">
+              <button type="button" className="link-btn" onClick={() => openEditModal(post)}>
+                Edit
+              </button>
+              <button
+                type="button"
+                className="link-btn link-btn-danger"
+                onClick={() => deletePostHandler(post.id)}
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
 
       {showPostModal && (
         <div className="modal-overlay">
           <div className="modal-box">
-            <h2>{editingPostId ? "Edit Post" : "Create Post"}</h2>
-            <form onSubmit={handlePostSubmit}>
+            <h2>{editingPostId ? "Edit post" : "New post"}</h2>
+            <form onSubmit={handlePostSubmit} className="modal-form">
               <input
                 type="text"
                 placeholder="Title"
@@ -225,10 +264,14 @@ function Dashboard() {
                   </option>
                 ))}
               </select>
-              <button type="submit">Save</button>
-              <button type="button" onClick={closePostModal}>
-                Cancel
-              </button>
+              <div className="modal-actions">
+                <button type="button" className="btn-outline" onClick={closePostModal}>
+                  Cancel
+                </button>
+                <button type="submit" className="btn-solid">
+                  Save
+                </button>
+              </div>
             </form>
           </div>
         </div>
@@ -237,8 +280,8 @@ function Dashboard() {
       {showCategoryModal && (
         <div className="modal-overlay">
           <div className="modal-box">
-            <h2>Create Category</h2>
-            <form onSubmit={handleCategorySubmit}>
+            <h2>New category</h2>
+            <form onSubmit={handleCategorySubmit} className="modal-form">
               <input
                 type="text"
                 placeholder="Category name"
@@ -246,10 +289,14 @@ function Dashboard() {
                 onChange={(e) => setNewCategoryName(e.target.value)}
                 required
               />
-              <button type="submit">Save</button>
-              <button type="button" onClick={closeCategoryModal}>
-                Cancel
-              </button>
+              <div className="modal-actions">
+                <button type="button" className="btn-outline" onClick={closeCategoryModal}>
+                  Cancel
+                </button>
+                <button type="submit" className="btn-solid">
+                  Save
+                </button>
+              </div>
             </form>
           </div>
         </div>

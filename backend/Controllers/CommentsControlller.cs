@@ -36,6 +36,14 @@ public class CommentController : ControllerBase
     {
         try
         {
+            var post_id= newComment.PostId;
+            var isPostExisting = await _context.Posts
+                .AnyAsync(p => p.id == post_id);
+
+            if (!isPostExisting)
+            {
+                return BadRequest(new { message = "post does not exists" });
+            }
             _context.Comments.Add(newComment);
             await _context.SaveChangesAsync();
             return Ok(new { message = "Comment added successfully", comment = newComment });

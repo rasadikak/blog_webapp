@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import "../styles/Post.css";
 
 function Post() {
   const { id } = useParams();
 
   const [post, setPost] = useState(null);
+  const [categories, setCategories] = useState([]);
   const [comments, setComments] = useState([]);
 
   const [commenterName, setCommenterName] = useState("");
@@ -17,6 +18,12 @@ function Post() {
       .then((data) => setPost(data));
   };
 
+  const fetchCategories = () => {
+    fetch("http://localhost:5017/api/Category")
+      .then((response) => response.json())
+      .then((data) => setCategories(data));
+  };
+
   const fetchComments = () => {
     fetch(`http://localhost:5017/api/Comment/post/${id}`)
       .then((response) => response.json())
@@ -25,6 +32,7 @@ function Post() {
 
   useEffect(() => {
     fetchPost();
+    fetchCategories();
     fetchComments();
   }, [id]);
 
@@ -49,40 +57,62 @@ function Post() {
   };
 
   if (!post) {
-    return <p>Loading...</p>;
+    return (
+      <div className="post-detail-container">
+        <p className="post-loading">Loading…</p>
+      </div>
+    );
   }
 
+  const categoryName = categories.find((cat) => cat.id === post.categoryId)?.name;
+
   return (
-    <div className="post-detail-container">
-      <h1>{post.title}</h1>
-      <p className="post-detail-content">{post.content}</p>
+    <div className="post-page">
+      <nav className="post-nav">
+        <Link to="/" className="post-nav-title">
+          Quiet Corners
+        </Link>
+        <Link to="/" className="post-nav-link">
+          Back to all posts
+        </Link>
+      </nav>
 
-      <h3>Comments</h3>
-      {comments.length === 0 && <p>No comments yet.</p>}
-      {comments.map((comment) => (
-        <div className="comment-card" key={comment.id}>
-          <strong>{comment.commenterName}</strong>
-          <p>{comment.content}</p>
-        </div>
-      ))}
+      <div className="post-detail-container">
+        
 
-      <h3>Leave a Comment</h3>
-      <form onSubmit={handleCommentSubmit} className="comment-form">
-        <input
-          type="text"
-          placeholder="Your name"
-          value={commenterName}
-          onChange={(e) => setCommenterName(e.target.value)}
-          required
-        />
-        <textarea
-          placeholder="Your comment"
-          value={commentContent}
-          onChange={(e) => setCommentContent(e.target.value)}
-          required
-        />
-        <button type="submit">Submit Comment</button>
-      </form>
+        {categoryName && <span className="post-card-category">{categoryName}</span>}
+        <h1>{post.title}</h1>
+        <p className="post-detail-content">{post.content}</p>
+
+        <h3>Comments</h3>
+        {comments.length === 0 && (
+          <p className="no-comments">No comments yet. Be the first to share a thought.</p>
+        )}
+        {comments.map((comment) => (
+          <div className="comment-card" key={comment.id}>
+            <strong>{comment.commenterName}</strong>
+            <p>{comment.content}</p>
+          </div>
+        ))}
+
+        <h3>Leave a comment</h3>
+        <form onSubmit={handleCommentSubmit} className="comment-form">
+          <input
+            type="text"
+            placeholder="Your name"
+            value={commenterName}
+            onChange={(e) => setCommenterName(e.target.value)}
+            required
+          />
+          <textarea
+            placeholder="Your comment"
+            value={commentContent}
+            onChange={(e) => setCommentContent(e.target.value)}
+            required
+          />
+          <button type="submit">Submit comment</button>
+        </form>
+      </div>
     </div>
   );
 }

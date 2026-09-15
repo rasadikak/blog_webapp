@@ -55,6 +55,30 @@ public class CategoryController : ControllerBase
     }
 
 
+    [Authorize]
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteCategory(int id)
+    {
+        try
+        {
+            var category= await _context.Categories.FindAsync(id);
+            if (category==null)
+            {
+                return NotFound();
+            }
+            _context.Categories.Remove(category);
+            await _context.SaveChangesAsync();
+
+            return Ok (new{message="category deleted successfully"});
+
+        }
+        catch(Exception ex)
+        {
+            return StatusCode(500,$"Something went wrong while deleting category -{ex}");
+        }
+    }
+
+
     
 
 

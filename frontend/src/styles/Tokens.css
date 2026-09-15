@@ -1,0 +1,53 @@
+:root {
+  --color-bg: #EDEEE8;
+  --color-surface: #E1E3D9;
+  --color-surface-hover: #D7DACC;
+  --color-border: #C9CCBF;
+  --color-text: #262922;
+  --color-text-muted: #6B6F62;
+  --color-accent: #4B6152;
+  --color-accent-hover: #3A4B3F;
+  --color-error: #A64B3F;
+  --color-error-bg: #F3E4E1;
+
+  --font-serif: Georgia, Cambria, 'Times New Roman', Times, serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+
+  --content-width: 680px;
+  --radius-sm: 3px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-serif);
+}
+
+a {
+  color: var(--color-accent);
+}
+
+button {
+  font-family: var(--font-sans);
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}
