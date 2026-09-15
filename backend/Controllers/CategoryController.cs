@@ -36,7 +36,14 @@ public class CategoryController : ControllerBase
     public async Task<IActionResult> CreateCategory([FromBody] Category newCategory)
     {
         try
-        {
+        {   
+            var isExisting = await _context.Categories
+                .AnyAsync(c => c.Name == newCategory.Name);
+
+            if (isExisting)
+            {
+                return BadRequest(new { message = "category already exists" });
+            }
             _context.Categories.Add(newCategory);
             await _context.SaveChangesAsync();
             return Ok(new { message = "category created successfully", category = newCategory });

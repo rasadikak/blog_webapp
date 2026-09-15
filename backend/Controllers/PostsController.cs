@@ -119,7 +119,9 @@ public class PostController : ControllerBase
     {
         try
         {
-            var posts= _context.Posts.Where(p=>p.CategoryId== categoryId).ToListAsync();
+            var posts = await _context.Posts
+                .Where(p => p.CategoryId == categoryId)
+                .ToListAsync();
             return Ok(posts);
         }
         catch(Exception ex)

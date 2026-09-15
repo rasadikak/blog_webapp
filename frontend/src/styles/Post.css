@@ -1,31 +1,103 @@
+:root {
+  --ink-bg: #faf7f2;
+  --ink-text: #2b2b2b;
+  --ink-muted: #6b6b6b;
+  --ink-accent: #a15c38;
+  --ink-border: #e7e0d6;
+  --ink-card: #ffffff;
+}
+
+body {
+  background-color: var(--ink-bg);
+}
+
 .post-detail-container {
   max-width: 700px;
   margin: 0 auto;
-  padding: 20px;
-  font-family: Arial, sans-serif;
+  padding: 40px 20px;
+  font-family: Georgia, 'Times New Roman', serif;
+  color: var(--ink-text);
+}
+
+.post-detail-container h1 {
+  font-size: 2rem;
+  margin-bottom: 6px;
 }
 
 .post-detail-content {
-  color: #333;
-  margin: 16px 0;
-  line-height: 1.6;
+  color: var(--ink-text);
+  font-size: 1.05rem;
+  margin: 20px 0 36px;
+  line-height: 1.7;
+}
+
+.post-detail-container h3 {
+  font-family: Arial, sans-serif;
+  font-size: 1.05rem;
+  border-bottom: 1px solid var(--ink-border);
+  padding-bottom: 8px;
+  margin-top: 36px;
 }
 
 .comment-card {
-  border-bottom: 1px solid #eee;
-  padding: 10px 0;
+  background-color: var(--ink-card);
+  border: 1px solid var(--ink-border);
+  border-radius: 6px;
+  padding: 14px 16px;
+  margin-top: 12px;
+  font-family: Arial, sans-serif;
+}
+
+.comment-card strong {
+  color: var(--ink-accent);
+  font-size: 0.9rem;
+}
+
+.comment-card p {
+  margin: 6px 0 0;
+  color: var(--ink-text);
+  font-size: 0.95rem;
 }
 
 .comment-form {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  margin-top: 10px;
+  gap: 12px;
+  margin-top: 14px;
+  font-family: Arial, sans-serif;
 }
 
 .comment-form input,
 .comment-form textarea {
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  padding: 10px 12px;
+  border: 1px solid var(--ink-border);
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-family: Arial, sans-serif;
+}
+
+.comment-form textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+.comment-form input:focus,
+.comment-form textarea:focus {
+  outline: none;
+  border-color: var(--ink-accent);
+}
+
+.comment-form button {
+  align-self: flex-start;
+  padding: 10px 20px;
+  background-color: var(--ink-accent);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.comment-form button:hover {
+  background-color: #8a4c2c;
 }
