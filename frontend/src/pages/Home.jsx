@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "../styles/Home.css";
+import logo from '../assets/logo.svg';
+
+
 
 const EXCERPT_LENGTH = 150;
 
-// Set this once you have a real hero image to show off on the home page.
-const HERO_IMAGE_URL = "";
+
 
 function Home() {
   const [posts, setPosts] = useState([]);
@@ -66,13 +68,9 @@ function Home() {
           </div>
 
           <div className="hero-image-slot">
-            {HERO_IMAGE_URL ? (
-              <img src={HERO_IMAGE_URL} alt="" />
-            ) : (
-              <div className="image-placeholder">
-                <span>Add a hero image here</span>
-              </div>
-            )}
+            
+              <img src={logo} className="hero-image"  alt="logo" />
+            
           </div>
         </div>
       </div>
