@@ -109,3 +109,9 @@ Reading endpoints are public. Creating, updating, or deleting posts, categories,
 
 - `blog.db` and `.env` are excluded from version control (see `.gitignore`) — the database is recreated via migrations, and the JWT secret should never be committed.
 - Sample data is seeded automatically on startup only if the database tables are empty.
+
+<img width="1863" height="974" alt="home page" src="https://github.com/user-attachments/assets/ae796632-44ba-40a1-85d6-3018fd0f11e7" />
+
+<img width="1861" height="976" alt="homepage 2" src="https://github.com/user-attachments/assets/96ab711d-5925-41ca-8dfb-f954e13c44ee" />
+
+<img width="1864" height="967" alt="dashboard page" src="https://github.com/user-attachments/assets/461eafe3-680d-40ab-b736-1371ef0da07a" />
