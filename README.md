@@ -1,4 +1,4 @@
-# Inkwell — Personal Blog Platform
+# Quiet Corners — Personal Blog Platform
 
 A full-stack personal blog built with an ASP.NET Core Web API backend and a React frontend. The blog owner can create, edit, and delete posts and categories through a JWT-protected admin dashboard, while visitors can read posts, filter by category, search, and leave comments without needing an account.
 
@@ -13,7 +13,7 @@ A full-stack personal blog built with an ASP.NET Core Web API backend and a Reac
 ## Tech Stack
 
 **Backend:** ASP.NET Core Web API, Entity Framework Core, SQLite, JWT Bearer Authentication, Swagger
-**Frontend:** React (Vite), React Router
+**Frontend:** React (Vite)
 
 ## Project Structure
 
