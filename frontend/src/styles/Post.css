@@ -1,0 +1,31 @@
+.post-detail-container {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.post-detail-content {
+  color: #333;
+  margin: 16px 0;
+  line-height: 1.6;
+}
+
+.comment-card {
+  border-bottom: 1px solid #eee;
+  padding: 10px 0;
+}
+
+.comment-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.comment-form input,
+.comment-form textarea {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}

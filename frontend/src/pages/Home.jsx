@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "../styles/Home.css";
-import { useNavigate } from "react-router-dom";
 
 function Home() {
   const [posts, setPosts] = useState([]);
-
-  const navigate = useNavigate();
+  const [searchText, setSearchText] = useState("");
 
   useEffect(() => {
     fetch("http://localhost:5017/api/Post")
@@ -14,11 +12,26 @@ function Home() {
       .then((data) => setPosts(data));
   }, []);
 
+  const filteredPosts = posts.filter((post) => {
+    return (
+      post.title.toLowerCase().includes(searchText.toLowerCase()) ||
+      post.content.toLowerCase().includes(searchText.toLowerCase())
+    );
+  });
+
   return (
     <div className="home-container">
       <h1 className="home-title">My Blog Site</h1>
 
-      {posts.map((post) => (
+      <input
+        type="text"
+        className="search-input"
+        placeholder="Search posts..."
+        value={searchText}
+        onChange={(e) => setSearchText(e.target.value)}
+      />
+
+      {filteredPosts.map((post) => (
         <div className="post-card" key={post.id}>
           <h2>
             <Link className="post-title-link" to={`/post/${post.id}`}>
