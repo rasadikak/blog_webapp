@@ -13,6 +13,20 @@ public static class DbSeeder
             context.SaveChanges();
         }
 
+        // Posts need a real user, so make sure one exists first.
+        // If a user is already registered, we reuse it. If not, we create a sample one.
+        var user = context.Users.FirstOrDefault();
+        if (user == null)
+        {
+            user = new User
+            {
+                Username = "sampleuser",
+                PasswordHash = "not-a-real-password"  // sample only, you cannot log in with this
+            };
+            context.Users.Add(user);
+            context.SaveChanges();   // saving gives the user a real Id
+        }
+
         if (!context.Posts.Any())
         {
             var techCategory = context.Categories.First(c => c.Name == "Tech");
@@ -25,7 +39,7 @@ public static class DbSeeder
                     Title = "My First Blog Post",
                     Content = "This is some sample content for testing.",
                     CreatedAt = DateTime.Now,
-                    UserId = 1,
+                    UserId = user.Id,
                     CategoryId = techCategory.Id
                 },
                 new Post
@@ -33,7 +47,7 @@ public static class DbSeeder
                     Title = "A Trip to the Mountains",
                     Content = "Sharing my travel experience here.",
                     CreatedAt = DateTime.Now,
-                    UserId = 1,
+                    UserId = user.Id,
                     CategoryId = travelCategory.Id
                 },
                 new Post
@@ -41,7 +55,7 @@ public static class DbSeeder
                     Title = "Best Pasta Recipe",
                     Content = "Here's how I make my favorite pasta dish.",
                     CreatedAt = DateTime.Now,
-                    UserId = 1,
+                    UserId = user.Id,
                     CategoryId = foodCategory.Id
                 }
             );

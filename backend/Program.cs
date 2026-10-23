@@ -53,6 +53,7 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    db.Database.Migrate();   // CHANGED: was "context", the variable is called "db"
     DbSeeder.Seed(db);
 }
 
