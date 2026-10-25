@@ -19,13 +19,13 @@ function Dashboard() {
   const [filterCategoryId, setFilterCategoryId] = useState("");
 
   const fetchPosts = () => {
-    fetch("http://localhost:5017/api/Post")
+    fetch("/api/Post")
       .then((response) => response.json())
       .then((data) => setPosts(data));
   };
 
   const fetchCategories = () => {
-    fetch("http://localhost:5017/api/Category")
+    fetch("/api/Category")
       .then((response) => response.json())
       .then((data) => setCategories(data));
   };
@@ -70,8 +70,8 @@ function Dashboard() {
 
     const isEditing = editingPostId !== null;
     const url = isEditing
-      ? `http://localhost:5017/api/Post/${editingPostId}`
-      : "http://localhost:5017/api/Post";
+      ? `/api/Post/${editingPostId}`
+      : "/api/Post";
     const method = isEditing ? "PUT" : "POST";
 
     fetch(url, {
@@ -98,7 +98,7 @@ function Dashboard() {
 
     const token = localStorage.getItem("token");
 
-    fetch(`http://localhost:5017/api/Post/${postId}`, {
+    fetch(`/api/Post/${postId}`, {
       method: "DELETE",
       headers: { Authorization: `Bearer ${token}` },
     }).then(() => {
@@ -121,7 +121,7 @@ function Dashboard() {
     e.preventDefault();
     const token = localStorage.getItem("token");
 
-    fetch("http://localhost:5017/api/Category", {
+    fetch("/api/Category", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

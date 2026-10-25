@@ -16,14 +16,14 @@ function Home() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:5017/api/Post")
+    fetch("/api/Post")
       .then((response) => response.json())
       .then((data) => {
         setPosts(data);
         setIsLoading(false);
       });
 
-    fetch("http://localhost:5017/api/Category")
+    fetch("/api/Category")
       .then((response) => response.json())
       .then((data) => setCategories(data));
   }, []);

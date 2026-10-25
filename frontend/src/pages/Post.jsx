@@ -13,19 +13,19 @@ function Post() {
   const [commentContent, setCommentContent] = useState("");
 
   const fetchPost = () => {
-    fetch(`http://localhost:5017/api/Post/${id}`)
+    fetch(`/api/Post/${id}`)
       .then((response) => response.json())
       .then((data) => setPost(data));
   };
 
   const fetchCategories = () => {
-    fetch("http://localhost:5017/api/Category")
+    fetch("/api/Category")
       .then((response) => response.json())
       .then((data) => setCategories(data));
   };
 
   const fetchComments = () => {
-    fetch(`http://localhost:5017/api/Comment/post/${id}`)
+    fetch(`/api/Comment/post/${id}`)
       .then((response) => response.json())
       .then((data) => setComments(data));
   };
@@ -45,7 +45,7 @@ function Post() {
       postId: parseInt(id),
     };
 
-    fetch("http://localhost:5017/api/Comment", {
+    fetch("/api/Comment", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newComment),
